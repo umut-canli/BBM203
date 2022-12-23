@@ -21,21 +21,12 @@ public:
     void insert2(PrimaryNode* &root,string name);
     PrimaryNode *findMin(PrimaryNode *root);
     PrimaryNode *findMax(PrimaryNode *root);
-     void printLevelOrder(PrimaryNode *root);
-     void printLevelOrder(AVLNode *root);
-     int height(PrimaryNode *root);
      int height(AVLNode *root);
-
-    void printGivenLevel(PrimaryNode *root, int level);
-    void printGivenLevel1(AVLNode *root, int level);
-    bool printLevel(PrimaryNode *node,int level);
-    void levelOrder(PrimaryNode *root);
-    void levelorder_traversal(PrimaryNode *root,string &out,bool isprintAll);
     void print_order(PrimaryNode* root,string &out,bool isSingleCategory);
-
-    void current_height(PrimaryNode *root, int level);
-
     AVLNode *findSecondaryNode(AVLNode *root, string name);
+    void printAllItems(string &output,string whichPrimaryNodes);
+    void find(string type,string &output,string primary,string secondary);
+    void updateData(string primary,string secondary,int data);
 };
 
 

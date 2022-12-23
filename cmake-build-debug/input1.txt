@@ -13,7 +13,7 @@ insert	food	chicken	60
 insert	sports	dumbbell	200
 remove	sports	dumbbell
 printAllItemsInCategory	sports
-insert  clothes	sweatshirt	100
+insert	clothes	sweatshirt	100
 insert	clothes	socks	25
 insert	clothes	jean	125
 insert	clothes	tie	35
