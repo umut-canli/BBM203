@@ -5,34 +5,30 @@
 #ifndef ASSGN4_AVLTREE_H
 #define ASSGN4_AVLTREE_H
 #include "AVLNode.h"
+#include "SecondaryNode.h"
 
 class AVLTree {
 public:
-    AVLNode *root;
+    SecondaryNode *root;
 
     AVLTree();
 
-    AVLNode *insert(AVLNode *root, string name, int data);
+    SecondaryNode *insert(SecondaryNode *root, string name, int data);
     void insert(string name,int data);
     void deletion(string name);
-    AVLNode *deletion(AVLNode *root, string name);
-    void preOrder(AVLNode *root);
-    AVLNode *rotateLeft(AVLNode *node);
-    AVLNode *rotateRight(AVLNode *node);
-    int getHeight(AVLNode *node);
-    void updateHeight(AVLNode *node);
-    AVLNode *findMin(AVLNode *root);
-    AVLNode *find(AVLNode *root);
-    AVLNode *getNode(string name,int data);
-    int balanceFactor(AVLNode *node);
-    void levelorder_traversal(AVLNode *root,string &out);
-    void current_height(AVLNode *root, int level);
+    SecondaryNode *deletion(SecondaryNode *root, string name);
+    void preOrder(SecondaryNode *root);
+    SecondaryNode *rotateLeft(SecondaryNode *node);
+    SecondaryNode *rotateRight(SecondaryNode *node);
+    int getHeight(SecondaryNode *node);
+    void updateHeight(SecondaryNode *node);
+    SecondaryNode *findMin(SecondaryNode *root);
+    int balanceFactor(SecondaryNode *node);
+    SecondaryNode *find(SecondaryNode *root, string name);
 
-    AVLNode *find(AVLNode *root, string name);
+    void print_order(SecondaryNode *root,string &out);
 
-    void print_order(AVLNode *root,string &out);
-
-    AVLNode *findSecondaryNode(AVLNode *root, string name);
+    SecondaryNode *findSecondaryNode(SecondaryNode *root, string name);
 };
 
 

@@ -5,6 +5,7 @@
 #ifndef C___BINARYSEARCHTREE_H
 #define C___BINARYSEARCHTREE_H
 #include "PrimaryNode.h"
+#include "SecondaryNode.h"
 
 using  namespace std;
 
@@ -18,13 +19,12 @@ public:
     PrimaryNode * deleteNode(PrimaryNode *root,string name);
     PrimaryNode *Search(PrimaryNode *root,string name);
     void preOrder(PrimaryNode *root);
-    void insert2(PrimaryNode* &root,string name);
     PrimaryNode *findMin(PrimaryNode *root);
     PrimaryNode *findMax(PrimaryNode *root);
-     int height(AVLNode *root);
-    void print_order(PrimaryNode* root,string &out,bool isSingleCategory);
-    AVLNode *findSecondaryNode(AVLNode *root, string name);
-    void printAllItems(string &output,string whichPrimaryNodes);
+     int height(SecondaryNode *root);
+    void print_order(PrimaryNode* root,string &out,bool isSingleCategory,string treeName);
+    SecondaryNode * findSecondaryNode(SecondaryNode *root, string name);
+    void printAllItems(string &output,string whichPrimaryNodes,string treeName);
     void find(string type,string &output,string primary,string secondary);
     void updateData(string primary,string secondary,int data);
 };

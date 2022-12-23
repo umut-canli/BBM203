@@ -37,7 +37,7 @@
         else{
 
             PrimaryNode *node=b.Search(b.root,split[1]);
-            AVLNode *secNode= b.findSecondaryNode(node->getTree()->root,split[2]);
+            AVLNode *secNode= b.findSecondaryNode(node->getAvlTree()->root,split[2]);
             if(split[0]=="find"){
                 output+="command:find\t"+split[1]+"\t"+split[2]+"\n";
             }

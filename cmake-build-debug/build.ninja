@@ -73,12 +73,6 @@ build CMakeFiles/ASSGN4.dir/RedBlackTree.cpp.o: CXX_COMPILER__ASSGN4_Debug /home
   OBJECT_DIR = CMakeFiles/ASSGN4.dir
   OBJECT_FILE_DIR = CMakeFiles/ASSGN4.dir
 
-build CMakeFiles/ASSGN4.dir/RBTNode.cpp.o: CXX_COMPILER__ASSGN4_Debug /home/umut/Desktop/ASSGN4/RBTNode.cpp || cmake_object_order_depends_target_ASSGN4
-  DEP_FILE = CMakeFiles/ASSGN4.dir/RBTNode.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/ASSGN4.dir
-  OBJECT_FILE_DIR = CMakeFiles/ASSGN4.dir
-
 build CMakeFiles/ASSGN4.dir/ReadFile.cpp.o: CXX_COMPILER__ASSGN4_Debug /home/umut/Desktop/ASSGN4/ReadFile.cpp || cmake_object_order_depends_target_ASSGN4
   DEP_FILE = CMakeFiles/ASSGN4.dir/ReadFile.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
@@ -109,6 +103,12 @@ build CMakeFiles/ASSGN4.dir/SecondaryNode.cpp.o: CXX_COMPILER__ASSGN4_Debug /hom
   OBJECT_DIR = CMakeFiles/ASSGN4.dir
   OBJECT_FILE_DIR = CMakeFiles/ASSGN4.dir
 
+build CMakeFiles/ASSGN4.dir/SecondaryTree.cpp.o: CXX_COMPILER__ASSGN4_Debug /home/umut/Desktop/ASSGN4/SecondaryTree.cpp || cmake_object_order_depends_target_ASSGN4
+  DEP_FILE = CMakeFiles/ASSGN4.dir/SecondaryTree.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/ASSGN4.dir
+  OBJECT_FILE_DIR = CMakeFiles/ASSGN4.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target ASSGN4
@@ -117,7 +117,7 @@ build CMakeFiles/ASSGN4.dir/SecondaryNode.cpp.o: CXX_COMPILER__ASSGN4_Debug /hom
 #############################################
 # Link the executable ASSGN4
 
-build ASSGN4: CXX_EXECUTABLE_LINKER__ASSGN4_Debug CMakeFiles/ASSGN4.dir/main.cpp.o CMakeFiles/ASSGN4.dir/AVLNode.cpp.o CMakeFiles/ASSGN4.dir/AVLTree.cpp.o CMakeFiles/ASSGN4.dir/RedBlackTree.cpp.o CMakeFiles/ASSGN4.dir/RBTNode.cpp.o CMakeFiles/ASSGN4.dir/ReadFile.cpp.o CMakeFiles/ASSGN4.dir/BinarySearchTree.cpp.o CMakeFiles/ASSGN4.dir/PrimaryNode.cpp.o CMakeFiles/ASSGN4.dir/Model1.cpp.o CMakeFiles/ASSGN4.dir/SecondaryNode.cpp.o
+build ASSGN4: CXX_EXECUTABLE_LINKER__ASSGN4_Debug CMakeFiles/ASSGN4.dir/main.cpp.o CMakeFiles/ASSGN4.dir/AVLNode.cpp.o CMakeFiles/ASSGN4.dir/AVLTree.cpp.o CMakeFiles/ASSGN4.dir/RedBlackTree.cpp.o CMakeFiles/ASSGN4.dir/ReadFile.cpp.o CMakeFiles/ASSGN4.dir/BinarySearchTree.cpp.o CMakeFiles/ASSGN4.dir/PrimaryNode.cpp.o CMakeFiles/ASSGN4.dir/Model1.cpp.o CMakeFiles/ASSGN4.dir/SecondaryNode.cpp.o CMakeFiles/ASSGN4.dir/SecondaryTree.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/ASSGN4.dir
   POST_BUILD = :

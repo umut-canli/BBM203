@@ -4,23 +4,24 @@
 
 #ifndef ASSGN4_REDBLACKTREE_H
 #define ASSGN4_REDBLACKTREE_H
-#include "RBTNode.h"
+#include "SecondaryNode.h"
 
 class RedBlackTree {
 public:
-    RBTNode *root;
-    RBTNode *insert(RBTNode *root,std::string name,int data);
+    SecondaryNode *root;
+    SecondaryNode *insert(SecondaryNode *root,std::string name,int data);
     void insert(std::string name,int data);
-    void preOrder(RBTNode *root);
-    bool isRed(RBTNode *root);
-    RBTNode *rotateLeft(RBTNode *root);
-    RBTNode *rotateRight(RBTNode *root);
-    void flipcolors(RBTNode *root);
-    RBTNode *deletion(RBTNode *root,std::string name,int data);
-    RBTNode *findMin(RBTNode *root);
-    RBTNode *fixdelete(RBTNode *root);
+    void preOrder(SecondaryNode *root);
+    bool isRed(SecondaryNode *root);
+    SecondaryNode *rotateLeft(SecondaryNode *root);
+    SecondaryNode *rotateRight(SecondaryNode *root);
+    void flipcolors(SecondaryNode *root);
+    SecondaryNode *deletion(SecondaryNode *root,std::string name,int data);
+    SecondaryNode *findMin(SecondaryNode *root);
 
     RedBlackTree();
+
+    void print_order(SecondaryNode *root, string &out);
 };
 
 

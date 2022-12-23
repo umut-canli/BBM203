@@ -8,16 +8,16 @@ PrimaryNode::PrimaryNode() {}
 
 PrimaryNode::PrimaryNode(std::string  name)  {
     this->name=name;
-    tree= new AVLTree();
-    rbt=new RedBlackTree();
+    avlTree= new AVLTree();
+    redBlackTree=new RedBlackTree();
     left= nullptr;
     right= nullptr;
 }
 
-AVLTree *PrimaryNode::getTree() const {
-    return tree;
+AVLTree *PrimaryNode::getAvlTree() const {
+    return avlTree;
 }
 
-RedBlackTree *PrimaryNode::getRbt() const {
-    return rbt;
+RedBlackTree *PrimaryNode::getRedBlackTree() const {
+    return redBlackTree;
 }

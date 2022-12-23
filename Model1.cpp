@@ -8,11 +8,15 @@ void Model1::createModel1(string input) {
     ofstream  ofile;
     ofile.open("output23.txt");
 
+
     ReadFile read=ReadFile();
+    RedBlackTree rbt=RedBlackTree();
 
     string command;
     string output;
-    BinarySearchTree b=BinarySearchTree();
+    string output2;
+    BinarySearchTree model1=BinarySearchTree();
+    BinarySearchTree model2=BinarySearchTree();
     vector<string> data=read.getData("input2.txt");
 
     for(string s:data){
@@ -25,42 +29,50 @@ void Model1::createModel1(string input) {
         }
 
         if(split[0]=="insert"){
-            PrimaryNode *node=b.Search(b.root,split[1]);
+            PrimaryNode *node=model1.Search(model1.root, split[1]);
             if(node== nullptr){
-                b.insert(split[1]);
+                model1.insert(split[1]);
+                model2.insert(split[1]);
 
             }
 
-            b.Search(b.root,split[1])->getTree()->insert(split[2], stoi(split[3]));
+            model1.Search(model1.root, split[1])->getAvlTree()->insert(split[2], stoi(split[3]));
+            model2.Search(model2.root, split[1])->getRedBlackTree()->insert(split[2], stoi(split[3]));
+
+
         }
         else if(split[0]=="remove"){
-            PrimaryNode *node=b.Search(b.root,split[1]);
-            node->getTree()->deletion(split[2]);
+            PrimaryNode *node=model1.Search(model1.root, split[1]);
+            node->getAvlTree()->deletion(split[2]);
         }
         else if(split[0]=="printAllItems") {
-            b.printAllItems(output,"all");
+            model1.printAllItems(output, "all","AVL");
+            model2.printAllItems(output2, "all","RBT");
+
 
         }
         else if(split[0]=="printAllItemsInCategory"){
-            b.printAllItems(output, split[1]);
+            model1.printAllItems(output, split[1],"AVL");
+            model1.printAllItems(output2, split[1],"RBT");
 
 
         }
         else if(split[0]=="updateData"){
-            b.updateData(split[1],split[2], stoi(split[3]));
+            model1.updateData(split[1], split[2], stoi(split[3]));
         }
         else if(split[0]=="find"){
-            b.find("find",output,split[1],split[2]);
+            model1.find("find", output, split[1], split[2]);
         }
         else if(split[0]=="printItem"){
-            b.find("printItem",output,split[1],split[2]);
+            model1.find("printItem", output, split[1], split[2]);
 
         }
+
 
     }
     output.pop_back();
+    cout<<output2<<endl;
     ofile<<output;
-    cout<<output<<endl;
     ofile.close();
 }
 

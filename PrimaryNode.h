@@ -7,6 +7,8 @@
 #include "string"
 #include "AVLTree.h"
 #include "RedBlackTree.h"
+#include "SecondaryNode.h"
+#include "SecondaryTree.h"
 using namespace std;
 
 class PrimaryNode {
@@ -17,12 +19,10 @@ public:
     PrimaryNode *left;
     PrimaryNode *right;
     std::string name;
-    AVLTree *tree;
-    RedBlackTree *rbt;
-
-    AVLTree *getTree() const;
-
-    RedBlackTree *getRbt() const;
+    AVLTree *avlTree;
+    RedBlackTree *redBlackTree;
+    AVLTree *getAvlTree() const;
+    RedBlackTree *getRedBlackTree() const;
 };
 
 

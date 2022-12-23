@@ -5,15 +5,13 @@
 #include "RedBlackTree.h"
 using namespace std;
 #include "iostream"
+#include "queue"
 
-RBTNode *RedBlackTree::insert(RBTNode *root, std::string name, int data) {
-    if(this->root== nullptr){
-        root=new RBTNode(name,data);
-        root->color=false;
-        return root;
-    }
-    else if(root== nullptr){
-        root=new RBTNode(name,data);
+SecondaryNode *RedBlackTree::insert(SecondaryNode *root, std::string name, int data) {
+
+    if(root== nullptr){
+        root=new SecondaryNode(name,data);
+        root->color= true;
         return root;
     }
     else if(name>root->name) root->right= insert(root->right,name,data);
@@ -32,11 +30,10 @@ void RedBlackTree::insert(std::string name, int data) {
 
 }
 
-void RedBlackTree::preOrder(RBTNode *root) {
+void RedBlackTree::preOrder(SecondaryNode *root) {
     if(root== nullptr){
         return;
     }
-    cout<<root->name<<" : "<<root->color<<endl;
     preOrder(root->left);
     preOrder(root->right);
 }
@@ -45,13 +42,13 @@ RedBlackTree::RedBlackTree() {
     root= nullptr;
 }
 
-bool RedBlackTree::isRed(RBTNode *root) {
+bool RedBlackTree::isRed(SecondaryNode *root) {
     if(root== nullptr)return false;
     return root->color;
 }
 
-RBTNode *RedBlackTree::rotateRight(RBTNode *root) {
-    RBTNode *temp=root->left;
+SecondaryNode *RedBlackTree::rotateRight(SecondaryNode *root) {
+    SecondaryNode *temp=root->left;
     root->left=temp->right;
     temp->right=root;
     temp->color=root->color;
@@ -60,9 +57,8 @@ RBTNode *RedBlackTree::rotateRight(RBTNode *root) {
 
 }
 
-RBTNode *RedBlackTree::rotateLeft(RBTNode *root) {
-    cout<<root->name<<endl;
-    RBTNode *temp=root->right;
+SecondaryNode *RedBlackTree::rotateLeft(SecondaryNode *root) {
+    SecondaryNode *temp=root->right;
     root->right=temp->left;
     temp->left=root;
     temp->color=root->color;
@@ -70,13 +66,13 @@ RBTNode *RedBlackTree::rotateLeft(RBTNode *root) {
     return temp;
 }
 
-void RedBlackTree::flipcolors(RBTNode *root) {
+void RedBlackTree::flipcolors(SecondaryNode *root) {
     root->right->color= false;
     root->left->color= false;
     root->color= true;
 }
 
-RBTNode *RedBlackTree::deletion(RBTNode *root, std::string name, int data) {
+SecondaryNode *RedBlackTree::deletion(SecondaryNode *root, std::string name, int data) {
     if(root== nullptr){
         return root;
     }
@@ -89,18 +85,18 @@ RBTNode *RedBlackTree::deletion(RBTNode *root, std::string name, int data) {
             return root;
         }
         else if(root->right== nullptr){
-            RBTNode *temp=root;
+            SecondaryNode *temp=root;
             root=root->left;
             delete temp;
         }
         else if(root->left== nullptr){
-            RBTNode *temp=root;
+            SecondaryNode *temp=root;
             root=root->right;
             root->color=false;
             delete temp;
         }
         else{
-            RBTNode *min= findMin(root->right);
+            SecondaryNode *min= findMin(root->right);
             root->data=min->data;
             root->name=min->name;
             if((!root->color)&&(min->color))root->color=false;
@@ -111,7 +107,7 @@ RBTNode *RedBlackTree::deletion(RBTNode *root, std::string name, int data) {
 
 }
 
-RBTNode *RedBlackTree::findMin(RBTNode *root) {
+SecondaryNode *RedBlackTree::findMin(SecondaryNode *root) {
     if(root== nullptr){
         return root;
     }
@@ -119,6 +115,43 @@ RBTNode *RedBlackTree::findMin(RBTNode *root) {
         return root;
     }
     return findMin(root->left);
+}
+void RedBlackTree::print_order(SecondaryNode *root, string &out) {
+    queue<SecondaryNode*> q;
+    q.push(root);
+
+    while(true){
+
+        int length = q.size();
+
+        if(length == 0){
+            break;
+        }
+
+        int i=0;
+        out+="\n\t";
+        while(i<length){
+
+            SecondaryNode* n = q.front();
+            out+="\""+n->name+"\":\"" + to_string(n->data)+"\",";
+
+            if(n->left != NULL){
+                q.push(n->left);
+            }
+
+            if(n->right != NULL){
+                q.push(n->right);
+            }
+
+            q.pop();
+            i++;
+
+        }
+        out.pop_back();
+
+
+    }
+    out+="\n";
 }
 
 

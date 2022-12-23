@@ -17,6 +17,8 @@ public:
     int height;
 
     explicit SecondaryNode(string name,int data);
+
+    void print_order(SecondaryNode *root, string &out);
 };
 
 

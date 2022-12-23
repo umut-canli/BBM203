@@ -8,27 +8,12 @@
 using namespace std;
 
 
-PrimaryNode *BinarySearchTree::createNode(string name) {
-    PrimaryNode *node=new PrimaryNode(name);
-    return node;
-}
 
 BinarySearchTree::BinarySearchTree() {
     root= nullptr;
 
 }
 
-void BinarySearchTree::insert2(PrimaryNode* &root,string name) {
-    if(root== nullptr){
-        root= createNode(name);
-    }
-    else if(name>root->name){
-        insert2(root->right,name);
-    }
-    else if(name<root->name){
-        insert2(root->left,name);
-    }
-}
 
 PrimaryNode *BinarySearchTree::Search(PrimaryNode *root, string name) {
     if(root== nullptr ||root->name==name){
@@ -125,7 +110,7 @@ void BinarySearchTree::insert(string name) {
     root= insert(root,name);
 }
 
-int BinarySearchTree::height(AVLNode *root) {
+int BinarySearchTree::height(SecondaryNode *root) {
     if (root == NULL)
         return 0;
     else {
@@ -145,7 +130,7 @@ int BinarySearchTree::height(AVLNode *root) {
 
 
 
-void BinarySearchTree::print_order(PrimaryNode *root,string &out,bool isSingleCategory) {
+void BinarySearchTree::print_order(PrimaryNode *root,string &out,bool isSingleCategory,string treeName) {
     queue<PrimaryNode*> q;
     q.push(root);
 
@@ -162,12 +147,24 @@ void BinarySearchTree::print_order(PrimaryNode *root,string &out,bool isSingleCa
         while(i<length){
             PrimaryNode* n = q.front();
             out+="\""+n->name+"\":";
-            if(n->getTree()->root!= nullptr){
-                n->getTree()->print_order(n->getTree()->root,out);
+            if(treeName=="AVL"){
+                if(n->getAvlTree()->root != nullptr){
+                    n->getAvlTree()->print_order(n->getAvlTree()->root, out);
+                }
+                else{
+                    out+="{}\n";
+                }
             }
             else{
-                out+="{}\n";
+                if(n->getRedBlackTree()->root != nullptr){
+                    n->getRedBlackTree()->print_order(n->getRedBlackTree()->root, out);
+                }
+                else{
+                    out+="{}\n";
+                }
             }
+
+
 
 
             if(n->left != NULL){
@@ -188,7 +185,7 @@ void BinarySearchTree::print_order(PrimaryNode *root,string &out,bool isSingleCa
     out+="}\n";
 
 }
-AVLNode *BinarySearchTree::findSecondaryNode(AVLNode *root, string name) {
+SecondaryNode* BinarySearchTree::findSecondaryNode(SecondaryNode *root, string name) {
     if(root== nullptr ||root->name==name){
         return root;
     }
@@ -199,20 +196,20 @@ AVLNode *BinarySearchTree::findSecondaryNode(AVLNode *root, string name) {
 
 }
 
-void BinarySearchTree::printAllItems(string &output,string whichPrimaryNodes) {
+void BinarySearchTree::printAllItems(string &output,string whichPrimaryNodes,string treeName) {
     if(whichPrimaryNodes=="all"){
         output+="command:printAllItems\n{\n";
-        print_order(root, output, false);
+        print_order(root, output, false,treeName);
         return;
     }
     PrimaryNode *node=Search(root,whichPrimaryNodes);
     output+="command:printAllItemsInCategory\t"+node->name+"\n{\n";
-    print_order(node, output, true);
+    print_order(node, output, true,treeName);
 
 }
 void BinarySearchTree::updateData(string primary,string secondary,int data){
     PrimaryNode * primaryNode= Search(root,primary);
-    findSecondaryNode(primaryNode->getTree()->root,secondary)->data=data;
+    findSecondaryNode(primaryNode->getAvlTree()->root, secondary)->data=data;
 }
 
 void BinarySearchTree::find(string type,string &output,string primary, string secondary) {
@@ -222,7 +219,7 @@ void BinarySearchTree::find(string type,string &output,string primary, string se
         output+="{}\n";
         return;
     }
-    AVLNode *secNode= findSecondaryNode(node->getTree()->root,secondary);
+    SecondaryNode *secNode= findSecondaryNode(node->getAvlTree()->root, secondary);
     if(secNode== nullptr){
         output+="{}\n";
         return;
