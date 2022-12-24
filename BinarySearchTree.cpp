@@ -14,7 +14,7 @@ BinarySearchTree::BinarySearchTree() {
 
 }
 
-
+//finds the named node and returns it.
 PrimaryNode *BinarySearchTree::search(PrimaryNode *node, string primaryName) {
     if(node == nullptr || node->name == primaryName){
         return node;
@@ -26,7 +26,7 @@ PrimaryNode *BinarySearchTree::search(PrimaryNode *node, string primaryName) {
 
 }
 
-
+//deletes the named node.
 PrimaryNode * BinarySearchTree::deleteNode(PrimaryNode *node, string name) {
     if(node == nullptr){
         return node;
@@ -64,7 +64,7 @@ PrimaryNode * BinarySearchTree::deleteNode(PrimaryNode *node, string name) {
     return node;
 }
 
-
+//finds the lowest element in subtree.
 PrimaryNode *BinarySearchTree::findMin(PrimaryNode *node) {
     if(node == nullptr){
         return nullptr;
@@ -75,7 +75,7 @@ PrimaryNode *BinarySearchTree::findMin(PrimaryNode *node) {
     return findMin(node->left);
 
 }
-
+//inserting new primary nodes to binary search tree .
 PrimaryNode *BinarySearchTree::insert(PrimaryNode *node, string name) {
     if(node == nullptr){
         node=new PrimaryNode(name);
@@ -85,11 +85,13 @@ PrimaryNode *BinarySearchTree::insert(PrimaryNode *node, string name) {
     else if(name < node->name) node->left=insert(node->left, name);
     return node;
 }
-
+//updating the root.
+// I need to update the root every time so if i want to insert a new node I am calling this function.After that this function
+//is calling the real insert function .Then the real insert function returning updated binary search tree so I am updating the root.
 void BinarySearchTree::insert(string name) {
     root= insert(root,name);
 }
-
+//If I am calling  print_order for "printAllItemsInCategory" ,function is turning 1 time then loop is breaking.
 void BinarySearchTree::print_order(PrimaryNode *node, string &out, bool isSingleCategory, string treeName) {
     queue<PrimaryNode*> q;
     q.push(node);
@@ -145,6 +147,7 @@ void BinarySearchTree::print_order(PrimaryNode *node, string &out, bool isSingle
     out+="}\n";
 
 }
+//finding the named secondary node in primary node's tree and returns it.
 SecondaryNode* BinarySearchTree::findSecondaryNode(SecondaryNode *node, string name) {
     if(node == nullptr || node->name == name){
         return node;
@@ -155,6 +158,8 @@ SecondaryNode* BinarySearchTree::findSecondaryNode(SecondaryNode *node, string n
     return findSecondaryNode(node->left, name);
 
 }
+//prints primary nodes  in levelorder.
+//I used this function for both "printALlItems" and "printAllItemsInCategory".
 
 void BinarySearchTree::printAllItems(string &output,string whichPrimaryNodes,string treeName) {
     if(whichPrimaryNodes=="all"){
@@ -167,12 +172,14 @@ void BinarySearchTree::printAllItems(string &output,string whichPrimaryNodes,str
     print_order(node, output, true,treeName);
 
 }
+//finding the secondary node and updating the data.
 void BinarySearchTree::updateData(string primary,string secondary,int data,string treeName){
     PrimaryNode * primaryNode= search(root, primary);
     if(treeName=="AVL")findSecondaryNode(primaryNode->getAvlTree()->root, secondary)->data=data;
     else findSecondaryNode(primaryNode->getRedBlackTree()->root, secondary)->data=data;
 
 }
+//for "find" and "print" commands ,I create this function.
 
 void BinarySearchTree::findPrintItems(string type, string &output, string primary, string secondary, string treeName) {
     output+="command:"+type+"\t"+primary+"\t"+secondary+"\n";
@@ -191,4 +198,41 @@ void BinarySearchTree::findPrintItems(string type, string &output, string primar
 
 
     output+="{\n\""+node->name+"\":\n\t\""+secondary+"\":\""+ to_string(secNode->data)+"\"\n}\n";
+}
+void BinarySearchTree::printSecondayNodes(SecondaryNode *node, string &out) {
+    queue<SecondaryNode*> queue;
+    queue.push(node);
+
+    while(true){
+
+        int length = queue.size();
+
+        if(length == 0){
+            break;
+        }
+
+        int i=0;
+        out+="\n\t";
+        while(i<length){
+
+            SecondaryNode* n = queue.front();
+            out+="\""+n->name+"\":\"" + to_string(n->data)+"\",";
+
+            if(n->left != nullptr){
+                queue.push(n->left);
+            }
+
+            if(n->right != nullptr){
+                queue.push(n->right);
+            }
+
+            queue.pop();
+            i++;
+
+        }
+        out.pop_back();
+
+
+    }
+    out+="\n";
 }

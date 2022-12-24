@@ -3,8 +3,8 @@
 // Created by umut on 23.12.2022.
 //
 
-#ifndef ASSGN4_MODEL1_H
-#define ASSGN4_MODEL1_H
+#ifndef ASSGN4_WEBSTORE_H
+#define ASSGN4_WEBSTORE_H
 #include "string"
 #include "AVLTree.h"
 #include "BinarySearchTree.h"
@@ -15,16 +15,14 @@
 
 using  namespace std;
 
-class Model1 {
+class Webstore {
 public:
     string file;
-
-
-    void createModel1(string output1Name,string output2Name,vector<string> input);
+    void createWebStore(string inputName, string output1Name, string output2Name);
 
 
 private:
 };
 
 
-#endif //ASSGN4_MODEL1_H
+#endif //ASSGN4_WEBSTORE_H

@@ -25,6 +25,8 @@ public:
 
     void findPrintItems(string type, string &output, string primary, string secondary, string treeName);
     void updateData(string primary,string secondary,int data,string treeName);
+
+    void printSecondayNodes(SecondaryNode *node, string &out);
 };
 
 

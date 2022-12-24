@@ -3,7 +3,7 @@
 //
 #include <queue>
 #include "AVLTree.h"
-
+//inserting new elements to AVL tree
 SecondaryNode *AVLTree::insert(SecondaryNode *node, string nodeName, int data) {
     if(node == nullptr){
         node=new SecondaryNode(nodeName, data);
@@ -43,7 +43,7 @@ SecondaryNode *AVLTree::insert(SecondaryNode *node, string nodeName, int data) {
 
     return node;
 }
-
+//rotating right the node
 SecondaryNode *AVLTree::rotateRight(SecondaryNode *node) {
     SecondaryNode *temp = node->left;
     node->left=temp->right;
@@ -53,7 +53,7 @@ SecondaryNode *AVLTree::rotateRight(SecondaryNode *node) {
 
     return temp;
 }
-
+//rotating left the node.
 SecondaryNode *AVLTree::rotateLeft(SecondaryNode *node) {
     SecondaryNode *temp=node->right;
     node->right=temp->left;
@@ -64,12 +64,12 @@ SecondaryNode *AVLTree::rotateLeft(SecondaryNode *node) {
 
     return temp;
 }
-
+//finding height of the node.
 int AVLTree::getHeight(SecondaryNode *node) {
     if(node== nullptr)return 0;
     return node->height;
 }
-
+//updating height of the node.
 void AVLTree::updateHeight(SecondaryNode *node) {
     node->height=max(getHeight(node->left), getHeight(node->right))+1;
 
@@ -83,7 +83,7 @@ AVLTree::AVLTree() {
 void AVLTree::insert(string name, int data) {
     root= insert(root,name,data);
 }
-
+//deleting and rebalancing the named node in AVL tree and
 SecondaryNode *AVLTree::deletion(SecondaryNode *root, string name) {
     if(root== nullptr){
         return root;
@@ -144,7 +144,7 @@ SecondaryNode *AVLTree::deletion(SecondaryNode *root, string name) {
     return root;
 
 }
-
+//finds the lowest element in subtree.
 SecondaryNode *AVLTree::findMin(SecondaryNode *node) {
     if(node == nullptr){
         return nullptr;
@@ -160,12 +160,12 @@ void AVLTree::deletion(string name) {
     root= deletion(root,name);
 
 }
-
+//getting the balance factor of the node.
 int AVLTree::balanceFactor(SecondaryNode *node) {
     if(node== nullptr)return 0;
     return getHeight(node->left)- getHeight(node->right);
 }
-
+//find the named node
 SecondaryNode *AVLTree::find(SecondaryNode *node, string name) {
     if(node == nullptr || node->name == name){
         return node;
@@ -176,6 +176,7 @@ SecondaryNode *AVLTree::find(SecondaryNode *node, string name) {
     return  find(node->left, name);
 }
 
+//prints AVL nodes  in levelorder.
 
 void AVLTree::print_order(SecondaryNode *node, string &out) {
     queue<SecondaryNode*> queue;
@@ -214,6 +215,7 @@ void AVLTree::print_order(SecondaryNode *node, string &out) {
     }
     out+="\n";
 }
+//finds the named node and returns it.
 SecondaryNode *AVLTree::findSecondaryNode(SecondaryNode *node, string name) {
     if(node == nullptr || node->name == name){
         return node;
