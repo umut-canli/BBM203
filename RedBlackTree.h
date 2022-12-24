@@ -9,19 +9,26 @@
 class RedBlackTree {
 public:
     SecondaryNode *root;
-    SecondaryNode *insert(SecondaryNode *root,std::string name,int data);
+
+    SecondaryNode *insert(SecondaryNode *node, std::string name, int data);
     void insert(std::string name,int data);
-    void preOrder(SecondaryNode *root);
-    bool isRed(SecondaryNode *root);
-    SecondaryNode *rotateLeft(SecondaryNode *root);
-    SecondaryNode *rotateRight(SecondaryNode *root);
-    void flipcolors(SecondaryNode *root);
-    SecondaryNode *deletion(SecondaryNode *root,std::string name,int data);
-    SecondaryNode *findMin(SecondaryNode *root);
 
+    SecondaryNode *deletion(SecondaryNode *node, std::string name);
+    void deletion(string name);
+
+    bool isRed(SecondaryNode *node);
+    SecondaryNode *rotateLeft(SecondaryNode *node);
+    SecondaryNode *rotateRight(SecondaryNode *node);
+    void flipcolors(SecondaryNode *node);
+    SecondaryNode *findMin(SecondaryNode *node);
     RedBlackTree();
+    void print_order(SecondaryNode *node, string &out);
+    SecondaryNode *deleteMinimum(SecondaryNode *node);
+    SecondaryNode *moveRedLeft(SecondaryNode *node);
+    SecondaryNode *moveRedRight(SecondaryNode *node);
 
-    void print_order(SecondaryNode *root, string &out);
+
+    void deleteMinimum();
 };
 
 

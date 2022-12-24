@@ -3,25 +3,31 @@
 //
 
 #include "Model1.h"
+#include "ReadFile.h"
 
-void Model1::createModel1(string input) {
+
+
+
+
+void Model1::createModel1(string output1Name,string output2Name,vector<string> input) {
     ofstream  ofile;
-    ofile.open("output23.txt");
+    ofstream  ofile2;
 
+    ofile.open("12.txt");
+    ofile2.open("22.txt");
 
-    ReadFile read=ReadFile();
-    RedBlackTree rbt=RedBlackTree();
 
     string command;
     string output;
     string output2;
     BinarySearchTree model1=BinarySearchTree();
     BinarySearchTree model2=BinarySearchTree();
-    vector<string> data=read.getData("input2.txt");
 
-    for(string s:data){
+
+
+    for(string str:input){
         vector<string> split;
-        stringstream ssin(s);
+        stringstream ssin(str);
         while(ssin.good()){
             string line;
             getline(ssin,line,'\t');
@@ -29,21 +35,23 @@ void Model1::createModel1(string input) {
         }
 
         if(split[0]=="insert"){
-            PrimaryNode *node=model1.Search(model1.root, split[1]);
+            PrimaryNode *node= model1.search(model1.root, split[1]);
             if(node== nullptr){
                 model1.insert(split[1]);
                 model2.insert(split[1]);
 
             }
 
-            model1.Search(model1.root, split[1])->getAvlTree()->insert(split[2], stoi(split[3]));
-            model2.Search(model2.root, split[1])->getRedBlackTree()->insert(split[2], stoi(split[3]));
+            model1.search(model1.root, split[1])->getAvlTree()->insert(split[2], stoi(split[3]));
+            model2.search(model2.root, split[1])->getRedBlackTree()->insert(split[2], stoi(split[3]));
 
 
         }
         else if(split[0]=="remove"){
-            PrimaryNode *node=model1.Search(model1.root, split[1]);
+            PrimaryNode *node= model1.search(model1.root, split[1]);
+            PrimaryNode *node2= model2.search(model2.root, split[1]);
             node->getAvlTree()->deletion(split[2]);
+            node2->getRedBlackTree()->deletion(split[2]);
         }
         else if(split[0]=="printAllItems") {
             model1.printAllItems(output, "all","AVL");
@@ -53,29 +61,31 @@ void Model1::createModel1(string input) {
         }
         else if(split[0]=="printAllItemsInCategory"){
             model1.printAllItems(output, split[1],"AVL");
-            model1.printAllItems(output2, split[1],"RBT");
+            model2.printAllItems(output2, split[1],"RBT");
 
 
         }
         else if(split[0]=="updateData"){
-            model1.updateData(split[1], split[2], stoi(split[3]));
+            model1.updateData(split[1], split[2], stoi(split[3]),"AVL");
+            model2.updateData(split[1], split[2], stoi(split[3]),"RBT");
         }
         else if(split[0]=="find"){
-            model1.find("find", output, split[1], split[2]);
+            model1.findPrintItems("find", output, split[1], split[2], "AVL");
+            model2.findPrintItems("find", output2, split[1], split[2], "RBT");
         }
         else if(split[0]=="printItem"){
-            model1.find("printItem", output, split[1], split[2]);
+            model1.findPrintItems("printItem", output, split[1], split[2], "AVL");
+            model2.findPrintItems("printItem", output2, split[1], split[2], "RBT");
 
         }
 
 
     }
     output.pop_back();
-    cout<<output2<<endl;
+    output2.pop_back();
+
+    ofile2<<output2;
     ofile<<output;
     ofile.close();
-}
-
-Model1::Model1(const string &file) : file(file) {
-    createModel1(file);
+    ofile2.close();
 }

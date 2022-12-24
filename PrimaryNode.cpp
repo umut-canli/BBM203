@@ -4,9 +4,8 @@
 
 #include "PrimaryNode.h"
 
-PrimaryNode::PrimaryNode() {}
 
-PrimaryNode::PrimaryNode(std::string  name)  {
+PrimaryNode::PrimaryNode(string  name)  {
     this->name=name;
     avlTree= new AVLTree();
     redBlackTree=new RedBlackTree();
@@ -14,10 +13,10 @@ PrimaryNode::PrimaryNode(std::string  name)  {
     right= nullptr;
 }
 
-AVLTree *PrimaryNode::getAvlTree() const {
+AVLTree *PrimaryNode::getAvlTree()  {
     return avlTree;
 }
 
-RedBlackTree *PrimaryNode::getRedBlackTree() const {
+RedBlackTree *PrimaryNode::getRedBlackTree()  {
     return redBlackTree;
 }

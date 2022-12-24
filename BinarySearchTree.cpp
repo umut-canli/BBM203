@@ -15,124 +15,84 @@ BinarySearchTree::BinarySearchTree() {
 }
 
 
-PrimaryNode *BinarySearchTree::Search(PrimaryNode *root, string name) {
-    if(root== nullptr ||root->name==name){
-        return root;
+PrimaryNode *BinarySearchTree::search(PrimaryNode *node, string primaryName) {
+    if(node == nullptr || node->name == primaryName){
+        return node;
     }
-    else if(name>root->name){
-        return Search(root->right,name);
+    else if(primaryName > node->name){
+        return search(node->right, primaryName);
     }
-    return  Search(root->left,name);
+    return search(node->left, primaryName);
 
 }
 
-void BinarySearchTree::preOrder(PrimaryNode *root) {
-    if(root== nullptr){
-        return;
-    }
-    cout<<root->name<<endl;
-    preOrder(root->left);
-    preOrder(root->right);
-}
 
-PrimaryNode * BinarySearchTree::deleteNode(PrimaryNode *root,string name) {
-    if(root==nullptr){
-        return root;
+PrimaryNode * BinarySearchTree::deleteNode(PrimaryNode *node, string name) {
+    if(node == nullptr){
+        return node;
     }
-    else if(name>root->name){
-        root->right=deleteNode(root->right,name);
+    else if(name > node->name){
+        node->right=deleteNode(node->right, name);
     }
-    else if(name<root->name){
-        root->left=deleteNode(root->left,name);
+    else if(name < node->name){
+        node->left=deleteNode(node->left, name);
     }
     else{
-        if(root->right == nullptr && root->left == nullptr){
-            delete root;
-            root= nullptr;
-            return root;
+        if(node->right == nullptr && node->left == nullptr){
+            delete node;
+            node= nullptr;
+            return node;
         }
-        else if(root->right == nullptr){
-            PrimaryNode *temp=root;
-            root=root->left;
+        else if(node->right == nullptr){
+            PrimaryNode *temp=node;
+            node=node->left;
             delete temp;
         }
-        else if(root->left == nullptr){
-            PrimaryNode *temp=root;
-            root=root->right;
+        else if(node->left == nullptr){
+            PrimaryNode *temp=node;
+            node=node->right;
             delete temp;
-            return root;
+            return node;
         }
         else{
-            PrimaryNode *temp= findMin(root->right);
-            root->name=temp->name;
-            root->right= deleteNode(root->right,temp->name);
+            PrimaryNode *temp= findMin(node->right);
+            node->name=temp->name;
+            node->right= deleteNode(node->right, temp->name);
         }
     }
 
-    return root;
+    return node;
 }
 
-PrimaryNode *BinarySearchTree::findMax(PrimaryNode *root) {
-    if(root== nullptr){
+
+PrimaryNode *BinarySearchTree::findMin(PrimaryNode *node) {
+    if(node == nullptr){
         return nullptr;
     }
-    else if(root->right== nullptr){
-        return root;
+    else if(node->left == nullptr){
+        return node;
     }
-    else{
-        return findMax(root->right);
-    }
+    return findMin(node->left);
+
 }
 
-PrimaryNode *BinarySearchTree::findMin(PrimaryNode *root) {
-    if(root== nullptr){
-        return nullptr;
+PrimaryNode *BinarySearchTree::insert(PrimaryNode *node, string name) {
+    if(node == nullptr){
+        node=new PrimaryNode(name);
+        return node;
     }
-    else if(root->left== nullptr){
-        return root;
-    }
-    else{
-        findMin(root->left);
-    }
-}
-
-PrimaryNode *BinarySearchTree::insert(PrimaryNode *root,string name) {
-    if(root== nullptr){
-        root=new PrimaryNode(name);
-        return root;
-    }
-    if(name>root->name)root->right=insert(root->right,name);
-    else if(name<root->name) root->left=insert(root->left,name);
-    return root;
+    if(name > node->name)node->right=insert(node->right, name);
+    else if(name < node->name) node->left=insert(node->left, name);
+    return node;
 }
 
 void BinarySearchTree::insert(string name) {
     root= insert(root,name);
 }
 
-int BinarySearchTree::height(SecondaryNode *root) {
-    if (root == NULL)
-        return 0;
-    else {
-        /* compute the height of each subtree */
-        int lheight = height(root->left);
-        int rheight = height(root->right);
-
-        /* use the larger one */
-        if (lheight > rheight) {
-            return (lheight + 1);
-        }
-        else {
-            return (rheight + 1);
-        }
-    }}
-
-
-
-
-void BinarySearchTree::print_order(PrimaryNode *root,string &out,bool isSingleCategory,string treeName) {
+void BinarySearchTree::print_order(PrimaryNode *node, string &out, bool isSingleCategory, string treeName) {
     queue<PrimaryNode*> q;
-    q.push(root);
+    q.push(node);
 
     while(true){
 
@@ -185,14 +145,14 @@ void BinarySearchTree::print_order(PrimaryNode *root,string &out,bool isSingleCa
     out+="}\n";
 
 }
-SecondaryNode* BinarySearchTree::findSecondaryNode(SecondaryNode *root, string name) {
-    if(root== nullptr ||root->name==name){
-        return root;
+SecondaryNode* BinarySearchTree::findSecondaryNode(SecondaryNode *node, string name) {
+    if(node == nullptr || node->name == name){
+        return node;
     }
-    else if(name>root->name){
-        return findSecondaryNode(root->right, name);
+    else if(name > node->name){
+        return findSecondaryNode(node->right, name);
     }
-    return findSecondaryNode(root->left, name);
+    return findSecondaryNode(node->left, name);
 
 }
 
@@ -202,24 +162,28 @@ void BinarySearchTree::printAllItems(string &output,string whichPrimaryNodes,str
         print_order(root, output, false,treeName);
         return;
     }
-    PrimaryNode *node=Search(root,whichPrimaryNodes);
+    PrimaryNode *node= search(root, whichPrimaryNodes);
     output+="command:printAllItemsInCategory\t"+node->name+"\n{\n";
     print_order(node, output, true,treeName);
 
 }
-void BinarySearchTree::updateData(string primary,string secondary,int data){
-    PrimaryNode * primaryNode= Search(root,primary);
-    findSecondaryNode(primaryNode->getAvlTree()->root, secondary)->data=data;
+void BinarySearchTree::updateData(string primary,string secondary,int data,string treeName){
+    PrimaryNode * primaryNode= search(root, primary);
+    if(treeName=="AVL")findSecondaryNode(primaryNode->getAvlTree()->root, secondary)->data=data;
+    else findSecondaryNode(primaryNode->getRedBlackTree()->root, secondary)->data=data;
+
 }
 
-void BinarySearchTree::find(string type,string &output,string primary, string secondary) {
+void BinarySearchTree::findPrintItems(string type, string &output, string primary, string secondary, string treeName) {
     output+="command:"+type+"\t"+primary+"\t"+secondary+"\n";
-    PrimaryNode *node=Search(root,primary);
+    PrimaryNode *node= search(root, primary);
+    SecondaryNode *secNode;
     if(node== nullptr){
         output+="{}\n";
         return;
     }
-    SecondaryNode *secNode= findSecondaryNode(node->getAvlTree()->root, secondary);
+    if(treeName=="AVL")  secNode= findSecondaryNode(node->getAvlTree()->root, secondary);
+    else  secNode= findSecondaryNode(node->getRedBlackTree()->root, secondary);
     if(secNode== nullptr){
         output+="{}\n";
         return;

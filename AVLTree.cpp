@@ -4,54 +4,44 @@
 #include <queue>
 #include "AVLTree.h"
 
-SecondaryNode *AVLTree::insert(SecondaryNode *root, string name, int data) {
-    if(root== nullptr){
-        root=new SecondaryNode(name,data);
-        root->height=1;
-        return root;
+SecondaryNode *AVLTree::insert(SecondaryNode *node, string nodeName, int data) {
+    if(node == nullptr){
+        node=new SecondaryNode(nodeName, data);
+        node->height=1;
+        return node;
 
     }
-    else if(name > root->name) root->right= insert(root->right,name,data);
-    else if(name<root->name) root->left= insert(root->left,name,data);
-    if(getHeight(root->left)> getHeight(root->right)){
-        root->height= getHeight(root->left)+1;
+    else if(nodeName > node->name) node->right= insert(node->right, nodeName, data);
+    else if(nodeName < node->name) node->left= insert(node->left, nodeName, data);
+    if(getHeight(node->left) > getHeight(node->right)){
+        node->height= getHeight(node->left) + 1;
     }
     else{
-        root->height= getHeight(root->right)+1;
+        node->height= getHeight(node->right) + 1;
     }
 
 
-    if((getHeight(root->left)- getHeight(root->right))==2){
+    if((getHeight(node->left) - getHeight(node->right)) == 2){
 
-        if(name<root->left->name){
-            return rotateRight(root);
+        if(nodeName < node->left->name){
+            return rotateRight(node);
         }
-        root->left = rotateLeft(root->left);
-        return rotateRight(root);
+        node->left = rotateLeft(node->left);
+        return rotateRight(node);
 
     }
-    if((getHeight(root->left)- getHeight(root->right))==-2){
+    if((getHeight(node->left) - getHeight(node->right)) == -2){
 
-        if(name>root->right->name){
-            return rotateLeft(root);
+        if(nodeName > node->right->name){
+            return rotateLeft(node);
         }
-        root->right = rotateRight(root->right);
-        return rotateLeft(root);
+        node->right = rotateRight(node->right);
+        return rotateLeft(node);
     }
 
 
 
-    return root;
-}
-
-void AVLTree::preOrder(SecondaryNode *root) {
-    if(root== nullptr){
-        return;
-    }
-    cout<<root->name<<" : "<<root->height<<endl;
-    preOrder(root->left);
-    preOrder(root->right);
-
+    return node;
 }
 
 SecondaryNode *AVLTree::rotateRight(SecondaryNode *node) {
@@ -155,14 +145,14 @@ SecondaryNode *AVLTree::deletion(SecondaryNode *root, string name) {
 
 }
 
-SecondaryNode *AVLTree::findMin(SecondaryNode *root) {
-    if(root== nullptr){
+SecondaryNode *AVLTree::findMin(SecondaryNode *node) {
+    if(node == nullptr){
         return nullptr;
     }
-    else if(root->left== nullptr){
-        return root;
+    else if(node->left == nullptr){
+        return node;
     }
-    return findMin(root->left);
+    return findMin(node->left);
 
 }
 
@@ -176,24 +166,24 @@ int AVLTree::balanceFactor(SecondaryNode *node) {
     return getHeight(node->left)- getHeight(node->right);
 }
 
-SecondaryNode *AVLTree::find(SecondaryNode *root,string name) {
-    if(root== nullptr ||root->name==name){
-        return root;
+SecondaryNode *AVLTree::find(SecondaryNode *node, string name) {
+    if(node == nullptr || node->name == name){
+        return node;
     }
-    else if(name>root->name){
-        return find(root->right,name);
+    else if(name > node->name){
+        return find(node->right, name);
     }
-    return  find(root->left,name);
+    return  find(node->left, name);
 }
 
 
-void AVLTree::print_order(SecondaryNode *root,string &out) {
-    queue<SecondaryNode*> q;
-    q.push(root);
+void AVLTree::print_order(SecondaryNode *node, string &out) {
+    queue<SecondaryNode*> queue;
+    queue.push(node);
 
     while(true){
 
-        int length = q.size();
+        int length = queue.size();
 
         if(length == 0){
             break;
@@ -203,18 +193,18 @@ void AVLTree::print_order(SecondaryNode *root,string &out) {
         out+="\n\t";
         while(i<length){
 
-            SecondaryNode* n = q.front();
+            SecondaryNode* n = queue.front();
             out+="\""+n->name+"\":\"" + to_string(n->data)+"\",";
 
-            if(n->left != NULL){
-                q.push(n->left);
+            if(n->left != nullptr){
+                queue.push(n->left);
             }
 
-            if(n->right != NULL){
-                q.push(n->right);
+            if(n->right != nullptr){
+                queue.push(n->right);
             }
 
-            q.pop();
+            queue.pop();
             i++;
 
         }
@@ -224,14 +214,14 @@ void AVLTree::print_order(SecondaryNode *root,string &out) {
     }
     out+="\n";
 }
-SecondaryNode *AVLTree::findSecondaryNode(SecondaryNode *root, string name) {
-    if(root== nullptr ||root->name==name){
-        return root;
+SecondaryNode *AVLTree::findSecondaryNode(SecondaryNode *node, string name) {
+    if(node == nullptr || node->name == name){
+        return node;
     }
-    else if(name>root->name){
-        return findSecondaryNode(root->right, name);
+    else if(name > node->name){
+        return findSecondaryNode(node->right, name);
     }
-    return findSecondaryNode(root->left, name);
+    return findSecondaryNode(node->left, name);
 
 }
 

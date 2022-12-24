@@ -11,6 +11,7 @@
 #include "RedBlackTree.h"
 #include "ReadFile.h"
 #include "sstream"
+#include "vector"
 
 using  namespace std;
 
@@ -18,10 +19,11 @@ class Model1 {
 public:
     string file;
 
-    explicit Model1(const string &file);
+
+    void createModel1(string output1Name,string output2Name,vector<string> input);
+
 
 private:
-    void createModel1(string input);
 };
 
 

@@ -41,3 +41,10 @@ command:printAllItems
 	"socks":"25"
 	"jean":"125","tie":"35"
 }
+command:findPrintItems	music	electric guitar
+{}
+command:findPrintItems	clothes	tie
+{
+"clothes":
+	"tie":"35"
+}

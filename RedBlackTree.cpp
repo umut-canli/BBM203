@@ -7,21 +7,21 @@ using namespace std;
 #include "iostream"
 #include "queue"
 
-SecondaryNode *RedBlackTree::insert(SecondaryNode *root, std::string name, int data) {
+SecondaryNode *RedBlackTree::insert(SecondaryNode *node, std::string name, int data) {
 
-    if(root== nullptr){
-        root=new SecondaryNode(name,data);
-        root->color= true;
-        return root;
+    if(node == nullptr){
+        node=new SecondaryNode(name, data);
+        node->color= true;
+        return node;
     }
-    else if(name>root->name) root->right= insert(root->right,name,data);
-    else if(name<root->name) root->left= insert(root->left,name,data);
+    else if(name > node->name) node->right= insert(node->right, name, data);
+    else if(name < node->name) node->left= insert(node->left, name, data);
 
-    if(isRed(root->right)&& !isRed(root->left)) root= rotateLeft(root);
-    if(isRed(root->left)&& isRed(root->left->left))root=rotateRight(root);
-    if(isRed(root->right)&& isRed(root->left))  flipcolors(root);
+    if(isRed(node->right) && !isRed(node->left)) node= rotateLeft(node);
+    if(isRed(node->left) && isRed(node->left->left))node=rotateRight(node);
+    if(isRed(node->right) && isRed(node->left))  flipcolors(node);
 
-    return root;
+    return node;
 }
 
 void RedBlackTree::insert(std::string name, int data) {
@@ -30,99 +30,92 @@ void RedBlackTree::insert(std::string name, int data) {
 
 }
 
-void RedBlackTree::preOrder(SecondaryNode *root) {
-    if(root== nullptr){
-        return;
-    }
-    preOrder(root->left);
-    preOrder(root->right);
-}
 
 RedBlackTree::RedBlackTree() {
     root= nullptr;
 }
 
-bool RedBlackTree::isRed(SecondaryNode *root) {
-    if(root== nullptr)return false;
-    return root->color;
+bool RedBlackTree::isRed(SecondaryNode *node) {
+    if(node == nullptr)return false;
+    return node->color;
 }
 
-SecondaryNode *RedBlackTree::rotateRight(SecondaryNode *root) {
-    SecondaryNode *temp=root->left;
-    root->left=temp->right;
-    temp->right=root;
-    temp->color=root->color;
-    root->color= true;
+SecondaryNode *RedBlackTree::rotateRight(SecondaryNode *node) {
+    SecondaryNode *temp=node->left;
+    node->left=temp->right;
+    temp->right=node;
+    temp->color=node->color;
+    node->color= true;
     return temp;
 
 }
 
-SecondaryNode *RedBlackTree::rotateLeft(SecondaryNode *root) {
-    SecondaryNode *temp=root->right;
-    root->right=temp->left;
-    temp->left=root;
-    temp->color=root->color;
-    root->color= true;
+SecondaryNode *RedBlackTree::rotateLeft(SecondaryNode *node) {
+    SecondaryNode *temp=node->right;
+    node->right=temp->left;
+    temp->left=node;
+    temp->color=node->color;
+    node->color= true;
     return temp;
 }
 
-void RedBlackTree::flipcolors(SecondaryNode *root) {
-    root->right->color= false;
-    root->left->color= false;
-    root->color= true;
+void RedBlackTree::flipcolors(SecondaryNode *node) {
+    node->right->color= false;
+    node->left->color= false;
+    node->color= true;
 }
 
-SecondaryNode *RedBlackTree::deletion(SecondaryNode *root, std::string name, int data) {
-    if(root== nullptr){
-        return root;
+SecondaryNode *RedBlackTree::deletion(SecondaryNode *node, std::string name) {
+    if(name < node->name){
+        if(!isRed(node->left) && !isRed(node->left->left)){
+            node= moveRedLeft(node);
+        }
+        node->left= deletion(node->left, name);
     }
-    else if(name>root->name)root->right= deletion(root->right,name,data);
-    else if(name<root->name)root->left= deletion(root->left,name,data);
     else{
-        if(root->right== nullptr && root->left== nullptr){
-            delete root;
-            root= nullptr;
-            return root;
+        if(isRed(node->left)){
+            node= rotateRight(node);
         }
-        else if(root->right== nullptr){
-            SecondaryNode *temp=root;
-            root=root->left;
-            delete temp;
+        if(node->name == name && node->right == nullptr){
+            delete node;
+            return nullptr;
         }
-        else if(root->left== nullptr){
-            SecondaryNode *temp=root;
-            root=root->right;
-            root->color=false;
-            delete temp;
+        if(!isRed(node->right) && !isRed(node->right->left)){
+            node= moveRedRight(node);
+        }
+        if(node->name == name){
+            SecondaryNode *min= findMin(node->right);
+            node->name=min->name;
+            node->data=min->data;
+            node->right= deleteMinimum(node->right);
         }
         else{
-            SecondaryNode *min= findMin(root->right);
-            root->data=min->data;
-            root->name=min->name;
-            if((!root->color)&&(min->color))root->color=false;
-            else if((root->color)&&!(min->color))
-            root->right= deletion(root->right,min->name,min->data);
+            node->right= deletion(node->right, name);
         }
-    }
 
+    }
+    if(isRed(node->right) && !isRed(node->left)) node= rotateLeft(node);
+    if(isRed(node->left) && isRed(node->left->left))node=rotateRight(node);
+    if(isRed(node->right) && isRed(node->left))  flipcolors(node);
+    return node;
 }
 
-SecondaryNode *RedBlackTree::findMin(SecondaryNode *root) {
-    if(root== nullptr){
-        return root;
+SecondaryNode *RedBlackTree::findMin(SecondaryNode *node) {
+    if(node == nullptr){
+        return node;
     }
-    else if(root->left== nullptr){
-        return root;
+    else if(node->left == nullptr){
+        return node;
     }
-    return findMin(root->left);
+    return findMin(node->left);
 }
-void RedBlackTree::print_order(SecondaryNode *root, string &out) {
-    queue<SecondaryNode*> q;
-    q.push(root);
+void RedBlackTree::print_order(SecondaryNode *node, string &out) {
+    queue<SecondaryNode*> queue;
+    queue.push(node);
 
     while(true){
 
-        int length = q.size();
+        int length = queue.size();
 
         if(length == 0){
             break;
@@ -132,18 +125,18 @@ void RedBlackTree::print_order(SecondaryNode *root, string &out) {
         out+="\n\t";
         while(i<length){
 
-            SecondaryNode* n = q.front();
+            SecondaryNode* n = queue.front();
             out+="\""+n->name+"\":\"" + to_string(n->data)+"\",";
 
-            if(n->left != NULL){
-                q.push(n->left);
+            if(n->left != nullptr){
+                queue.push(n->left);
             }
 
-            if(n->right != NULL){
-                q.push(n->right);
+            if(n->right != nullptr){
+                queue.push(n->right);
             }
 
-            q.pop();
+            queue.pop();
             i++;
 
         }
@@ -153,6 +146,45 @@ void RedBlackTree::print_order(SecondaryNode *root, string &out) {
     }
     out+="\n";
 }
+
+
+
+SecondaryNode *RedBlackTree::deleteMinimum(SecondaryNode *node) {
+    if(node->left == nullptr)return nullptr;
+    if(!isRed(node->left) && !isRed(node->left->left)){
+        node=moveRedLeft(node);
+    }
+    node->left= deleteMinimum(node->left);
+    if(isRed(node->right) && !isRed(node->left)) node= rotateLeft(node);
+    if(isRed(node->left) && isRed(node->left->left))node=rotateRight(node);
+    if(isRed(node->right) && isRed(node->left))  flipcolors(node);
+    return root;
+}
+
+SecondaryNode *RedBlackTree::moveRedLeft(SecondaryNode *node) {
+    flipcolors(node);
+    if(isRed(node->right->left)){
+        node->right= rotateRight(node->right);
+        node= rotateLeft(node);
+        flipcolors(node);
+    }
+    return node;
+}
+
+SecondaryNode *RedBlackTree::moveRedRight(SecondaryNode *node) {
+    flipcolors(node);
+    if(!isRed(node->left->left)){
+        node= rotateRight(node);
+        flipcolors(node);
+    }
+    return node;
+}
+
+void RedBlackTree::deletion(string name) {
+    root= deletion(root,name);
+}
+
+
 
 
 

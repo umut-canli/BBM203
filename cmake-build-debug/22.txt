@@ -2,8 +2,8 @@ command:printAllItems
 {
 "music":
 	"drum":"250"
-	"bass":"200","guitar":"150"
-	"piano":"300"
+	"bass":"200","piano":"300"
+	"guitar":"150"
 "food":
 	"nachos":"55"
 	"fish":"30","tacos":"60"
@@ -21,8 +21,8 @@ command:printAllItemsInCategory	clothes
 {
 "clothes":
 	"socks":"25"
-	"jean":"125","sweatshirt":"100"
-	"tie":"35"
+	"jean":"125","tie":"35"
+	"sweatshirt":"100"
 }
 command:printItem	clothes	sweatshirt
 {}
@@ -30,8 +30,8 @@ command:printAllItems
 {
 "music":
 	"drum":"250"
-	"bass":"250","guitar":"150"
-	"piano":"300"
+	"bass":"250","piano":"300"
+	"guitar":"150"
 "food":
 	"nachos":"55"
 	"chips":"45","tacos":"60"
@@ -40,4 +40,11 @@ command:printAllItems
 "clothes":
 	"socks":"25"
 	"jean":"125","tie":"35"
+}
+command:find	music	electric guitar
+{}
+command:find	clothes	tie
+{
+"clothes":
+	"tie":"35"
 }

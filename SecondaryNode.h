@@ -15,10 +15,8 @@ public:
     string name;
     bool color;
     int height;
+    SecondaryNode(string name,int data);
 
-    explicit SecondaryNode(string name,int data);
-
-    void print_order(SecondaryNode *root, string &out);
 };
 
 

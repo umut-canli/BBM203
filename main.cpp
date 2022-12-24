@@ -1,14 +1,19 @@
-// C++ program to insert a node in AVL avlTree
-#include<bits/stdc++.h>
 using namespace std;
 #include "Model1.h"
-int main()
-{
-    Model1 model1= Model1("input2.txt");
-    RedBlackTree rbt=RedBlackTree();
-    rbt.insert("umut",10);
-    rbt.insert("kutay",10);
-    rbt.insert("ali",10);
+#include "fstream"
+#include "vector"
+int main(int argc, char **argv)
+{   ifstream ifile;
+    vector<string> data;
+    ifile.open("input1.txt");
+    if(ifile.is_open()){
+        string line;
+        while(getline(ifile,line)){
+            data.push_back(line);
+        }
+    }
+    Model1 model1= Model1();
+    model1.createModel1(argv[2],argv[3],data);
 
 
     return 0;

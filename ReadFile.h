@@ -1,9 +1,9 @@
 //
-// Created by umut on 12/2/22.
+// Created by umut on 23.12.2022.
 //
 
-#ifndef ASSGN3_READFILE_H
-#define ASSGN3_READFILE_H
+#ifndef ASSGN4_READFILE_H
+#define ASSGN4_READFILE_H
 #include "iostream"
 #include "fstream"
 #include "vector"
@@ -13,11 +13,14 @@ private:
     ifstream ifile;
     vector<string> data;
 public:
-    ReadFile();
+    vector<string> getData();
+    const vector<string> &getData1() const;
+
+public:
+    ReadFile(string fileName);
 
 
     vector<string> getData(string fileName);
 };
 
-
-#endif //ASSGN3_READFILE_H
+#endif //ASSGN4_READFILE_H

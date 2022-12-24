@@ -13,20 +13,18 @@ class BinarySearchTree {
 public:
     PrimaryNode *root;
     BinarySearchTree();
-    PrimaryNode *createNode(string name);
-    PrimaryNode *insert(PrimaryNode *root,string name);
+    PrimaryNode *insert(PrimaryNode *node, string name);
     void insert(string name);
-    PrimaryNode * deleteNode(PrimaryNode *root,string name);
-    PrimaryNode *Search(PrimaryNode *root,string name);
-    void preOrder(PrimaryNode *root);
-    PrimaryNode *findMin(PrimaryNode *root);
-    PrimaryNode *findMax(PrimaryNode *root);
-     int height(SecondaryNode *root);
-    void print_order(PrimaryNode* root,string &out,bool isSingleCategory,string treeName);
-    SecondaryNode * findSecondaryNode(SecondaryNode *root, string name);
+
+    PrimaryNode * deleteNode(PrimaryNode *node, string name);
+    PrimaryNode *search(PrimaryNode *node, string primaryName);
+    PrimaryNode *findMin(PrimaryNode *node);
+    void print_order(PrimaryNode* node, string &out, bool isSingleCategory, string treeName);
+    SecondaryNode * findSecondaryNode(SecondaryNode *node, string name);
     void printAllItems(string &output,string whichPrimaryNodes,string treeName);
-    void find(string type,string &output,string primary,string secondary);
-    void updateData(string primary,string secondary,int data);
+
+    void findPrintItems(string type, string &output, string primary, string secondary, string treeName);
+    void updateData(string primary,string secondary,int data,string treeName);
 };
 
 
